@@ -1,0 +1,181 @@
+/* Header Styles */
+header {
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid black;
+  background-color: red;
+}
+
+.flex-container-header-left {
+  display: flex;
+  margin-left: 40px;
+}
+
+.flex-container-header-right {
+  display: flex;
+  margin-right: 40px;
+}
+
+.flex-item {
+  margin-right: 20px;
+}
+
+.header-img {
+  max-width: 150px;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Main Content and Layout */
+.main-content {
+  display: flex;
+  min-height: calc(
+    100vh - (header height + footer height)
+  ); /* Main content takes the remaining space apart from header and footer */
+}
+
+.content {
+  flex-grow: 1; /* Main content takes the remaining space */
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column; /* Arrange children vertically */
+  background-color: antiquewhite;
+}
+
+.content-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(33, 153, 137);
+}
+
+.content-body-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.content-body-item {
+  margin-top: 20px;
+  width: 100%;
+  border: 1px solid black;
+  text-align: center;
+  background-color: greenyellow;
+}
+
+/* Sidebar Styles */
+.sidebar-left,
+.sidebar-right {
+  width: 20%;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.sidebar-left {
+  background-color: lightblue;
+}
+
+.sidebar-right {
+  background-color: lightpink;
+}
+
+.flex-item-left-sidebar {
+  margin: 50px 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.left-sidebar-img {
+  max-width: 30px;
+  max-height: 30px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.flex-item-right-sidebar {
+  flex-grow: 1;
+  margin: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.right-sidebar-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.right-sidebar-content h1,
+.right-sidebar-content h2,
+.right-sidebar-content p,
+.right-sidebar-content .transaction {
+  margin-top: 10px;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.right-sidebar-content .transaction {
+  border: 2px solid black;
+  width: 100%;
+  text-align: center;
+}
+
+/* Footer Styles */
+footer {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  padding: 10px;
+  background-color: rgb(211, 214, 214);
+}
+
+.footer-items-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-item {
+  flex-grow: 1;
+  margin: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.copyright-text {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+  color: gray;
+}
+
+/* Form and Button Styles */
+.checkbox-item {
+  margin-bottom: 10px; /* Space between checkboxes */
+}
+
+.submit-button {
+  margin: 20px; /* Space above the submit button */
+  padding: 10px 20px; /* Button padding */
+  border: none; /* Remove default border */
+  background-color: rgb(33, 153, 137); /* Button background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Pointer on hover */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.submit-button:hover {
+  background-color: rgb(25, 115, 100); /* Darker shade on hover */
+}
