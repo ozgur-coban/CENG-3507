@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farmer Management</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Farmer Management System</h1>
+      <nav>
+        <button class="module-btn" data-target="module-one">
+          Supplier Management Module
+        </button>
+        <button class="module-btn" data-target="module-two">
+          Product Categorization and Packaging Module
+        </button>
+        <button class="module-btn" data-target="module-three">
+          Sales Management Module
+        </button>
+        <button class="module-btn" data-target="module-four">
+          Financial Analysis Module
+        </button>
+        <button class="module-btn" data-target="module-five">
+          Inventory Management Module
+        </button>
+        <button class="module-btn" data-target="module-six">
+          Comprehensive Report Generation Module
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="module-one" class="module-section">
+        <!-- Add Farmer Section -->
+        <section id="add-farmer-section">
+          <h2>Add Farmer</h2>
+          <form id="add-farmer-form">
+            <label for="farmer-id">Farmer ID:</label>
+            <input type="number" id="farmer-id" required />
+
+            <label for="farmer-name">First Name:</label>
+            <input type="text" id="farmer-name" required />
+
+            <label for="farmer-surname">Last Name:</label>
+            <input type="text" id="farmer-surname" required />
+
+            <label for="farmer-phone">Phone Number:</label>
+            <input type="text" id="farmer-phone" maxlength="10" required />
+
+            <label for="farmer-location">Location:</label>
+            <input type="text" id="farmer-location" required />
+
+            <button type="button" id="add-farmer-button">Add Farmer</button>
+          </form>
+        </section>
+        <section id="add-purchase-info-section-1">
+          <h2>Add Purchase Info</h2>
+          <form id="add-purchase-info-form-1">
+            <label for="purchase-id-1">Purchase ID:</label>
+            <input type="number" id="purchase-id-1" required />
+
+            <label for="farmer-id-for-purchase-1">Farmer ID:</label>
+            <input type="number" id="farmer-id-for-purchase-1" required />
+
+            <label for="date-purchased-1">Date Purchased:</label>
+            <input type="date" id="date-purchased-1" required />
+
+            <label for="quantity-purchased-1">Quantity Purchased:</label>
+            <input
+              type="number"
+              id="quantity-purchased-1"
+              step="0.01"
+              required
+            />
+
+            <label for="price-per-unit-1">Price Per Unit:</label>
+            <input type="number" id="price-per-unit-1" step="0.01" required />
+
+            <button type="button" class="add-purchase-info-button">
+              Add Purchase Info
+            </button>
+          </form>
+        </section>
+
+        <!-- Farmers Table -->
+        <section id="farmers-table-section">
+          <h2>Farmers List</h2>
+          <table id="farmer-table" border="1">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <th>Location</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Populated dynamically by JS -->
+            </tbody>
+          </table>
+          <!-- Update Farmer Modal -->
+          <div id="updateFarmerModal" style="display: none">
+            <h2>Update Farmer</h2>
+            <form id="update-farmer-form">
+              <label for="update-farmer-name">First Name:</label>
+              <input type="text" id="update-farmer-name" />
+
+              <label for="update-farmer-surname">Last Name:</label>
+              <input type="text" id="update-farmer-surname" />
+
+              <label for="update-farmer-phone">Phone Number:</label>
+              <input type="text" id="update-farmer-phone" maxlength="10" />
+
+              <label for="update-farmer-location">Location:</label>
+              <input type="text" id="update-farmer-location" />
+
+              <button type="button" id="submit-update-farmer">
+                Submit Update
+              </button>
+              <button type="button" id="cancel-update-farmer">Cancel</button>
+            </form>
+          </div>
+        </section>
+
+        <!-- Search Table -->
+        <section id="search-table-section">
+          <h2>Search Results</h2>
+          <input type="text" id="search-input" />
+          <button type="button" id="search-by-name-button">
+            Search by Name
+          </button>
+          <button type="button" id="search-by-location-button">
+            Search by Location
+          </button>
+          <table id="search-table" border="1">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <th>Location</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Populated dynamically by JS -->
+            </tbody>
+          </table>
+        </section>
+        <br />
+        <section id="purchase-info-table-section">
+          <h2>Purchase List</h2>
+          <table id="purchase-info-table" border="1">
+            <thead>
+              <tr>
+                <th>Purchase ID</th>
+                <th>Farmer ID</th>
+                <th>Date Purchased</th>
+                <th>Quantity Purchased</th>
+                <th>Price Per Unit</th>
+                <th>Total Price</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Populated dynamically by JS -->
+            </tbody>
+          </table>
+          <div id="purchase-info-actions">
+            <button id="search-by-farmer-id-button">Search by Farmer ID</button>
+            <button id="sort-by-date-button">Sort by Date</button>
+            <button id="filter-by-amount-button">List Above Amount</button>
+          </div>
+
+          <!-- Search Input for Farmer ID -->
+          <div id="search-container" style="margin-top: 10px; display: none">
+            <label for="search-farmer-id">Farmer ID:</label>
+            <input type="number" id="search-farmer-id" />
+            <button id="perform-search-button">Search</button>
+          </div>
+
+          <!-- Filter Input for Purchase Amount -->
+          <div id="filter-container" style="margin-top: 10px; display: none">
+            <label for="filter-amount">Minimum Total Amount:</label>
+            <input type="number" id="filter-amount" />
+            <button id="perform-filter-button">Filter</button>
+          </div>
+          <label for="time-period">Select Time Period:</label>
+          <select id="time-period">
+            <option value="lastDay">Last Day</option>
+            <option value="lastWeek">Last Week</option>
+            <option value="lastMonth">Last Month</option>
+            <option value="lastQuarter">Last Quarter</option>
+            <option value="lastYear">Last Year</option>
+          </select>
+          <button id="calculate-expenses">Calculate Expenses</button>
+          <div id="results"></div>
+
+          <div class="total-raw-input-container">
+            <h1>Total Raw Input</h1>
+            <p>The total raw input is:</p>
+            <div id="total-raw-input" class="total-display">0</div>
+          </div>
+        </section>
+      </section>
+      <section id="module-two" class="module-section">
+        <section id="quantity-remaining-for-all-categories">
+          <h2>Quantity Remaining for All Categories</h2>
+          <table id="quantity-remaining-table" border="1">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Quantity Remaining To Sell</th>
+                <th>Category Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Populated dynamically by JS -->
+            </tbody>
+          </table>
+          <button id="satisfy-min-remaining-btn">
+            Satisfy Minimum Remaining
+          </button>
+        </section>
+        <section id="add-category-section">
+          <h2>Add Premium Category</h2>
+          <form id="categoryForm">
+            <label for="categoryName">Category Name:</label>
+            <input
+              type="text"
+              id="categoryName"
+              name="categoryName"
+              required
+            /><br />
+
+            <label for="categoryWeight">Category Weight:</label>
+            <input
+              type="number"
+              id="categoryWeight"
+              name="categoryWeight"
+              step="any"
+              required
+            /><br />
+
+            <label for="categoryPrice">Category Price:</label>
+            <input
+              type="number"
+              id="categoryPrice"
+              name="categoryPrice"
+              step="any"
+              required
+            /><br />
+
+            <label for="categoryDemand">Category Demand:</label>
+            <input
+              type="number"
+              id="categoryDemand"
+              name="categoryDemand"
+              step="any"
+              required
+            /><br />
+
+            <label for="categoryRemaining">Category Remaining:</label>
+            <input
+              type="number"
+              id="categoryRemaining"
+              name="categoryRemaining"
+              step="any"
+              required
+            /><br />
+
+            <label for="categoryMinRemaining">Category Min Remaining:</label>
+            <input
+              type="number"
+              id="categoryMinRemaining"
+              name="categoryMinRemaining"
+              step="any"
+              required
+            /><br />
+
+            <button type="submit">Add Category</button>
+          </form>
+        </section>
+      </section>
+      <section id="module-three" class="module-section">
+        <section id="add-customer-section">
+          <h2>Add Customer</h2>
+          <form id="add-customer-form">
+            <label for="customer-id">Customer ID:</label>
+            <input type="number" id="customer-id" required />
+
+            <label for="customer-name">First Name:</label>
+            <input type="text" id="customer-name" required />
+
+            <label for="customer-surname">Last Name:</label>
+            <input type="text" id="customer-surname" required />
+
+            <label for="customer-phone">Phone Number:</label>
+            <input type="text" id="customer-phone" maxlength="10" required />
+
+            <label for="customer-location">Location:</label>
+            <input type="text" id="customer-location" required />
+
+            <button type="button" id="add-customer-button">Add Customer</button>
+          </form>
+        </section>
+        <section id="select-customer-section">
+          <h2>Select Customer</h2>
+          <label for="customer-dropdown">Choose a Customer:</label>
+          <select id="customer-dropdown">
+            <option value="" disabled selected>Select a customer</option>
+            <!-- Options will be populated dynamically -->
+          </select>
+        </section>
+
+        <section id="buy-from-stock-section">
+          <h2>Buy From Stock</h2>
+          <div id="place-order">
+            <input
+              type="text"
+              id="category-to-buy"
+              placeholder="Enter category"
+            />
+            <input
+              type="number"
+              id="quantity-to-buy"
+              placeholder="Enter category quantity"
+            />
+            <label for="order-date">Select Order Date:</label>
+            <input type="date" id="order-date" />
+            <button id="buy-from-stock-button">Buy</button>
+          </div>
+        </section>
+
+        <section id="order-history-section">
+          <h2>Order History</h2>
+          <!-- Filters -->
+          <div id="filters">
+            <label for="filter-customer-name">Filter by Customer Name:</label>
+            <input
+              type="text"
+              id="filter-customer-name"
+              placeholder="Enter customer name"
+            />
+
+            <label for="filter-category">Filter by Product Category:</label>
+            <input
+              type="text"
+              id="filter-category"
+              placeholder="Enter product category"
+            />
+          </div>
+          <table id="order-history-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer Name</th>
+                <th>Customer Surname</th>
+                <th>Phone Number</th>
+                <th>Location</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Revenue</th>
+                <th>Order Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Populated rows will appear here -->
+            </tbody>
+          </table>
+        </section>
+
+        <section id="category-revenue">
+          <table id="category-revenue-table">
+            <thead>
+              <tr>
+                <th>Category Name</th>
+                <th>Quantity Sold</th>
+                <th>Category Revenue</th>
+                <th>Total Revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Rows will be dynamically inserted here -->
+            </tbody>
+          </table>
+          <div
+            id="total-revenue-display"
+            style="margin-top: 10px; font-weight: bold"
+          ></div>
+        </section>
+      </section>
+      <section id="module-four" class="module-section">
+        <section id="tax-module-section">
+          <h2>Tax Module</h2>
+          <div id="filter-orders-with-date">
+            <label for="order-period">Select Order Period:</label>
+            <select id="order-period">
+              <option value="lastDay">Last Day</option>
+              <option value="lastWeek">Last Week</option>
+              <option value="lastMonth">Last Month</option>
+              <option value="lastQuarter">Last Quarter</option>
+              <option value="lastYear">Last Year</option>
+              <!-- Add other periods as needed -->
+            </select>
+          </div>
+          <div id="total-income-container">
+            <h2>Total Income</h2>
+            <h3>Total Income:</h3>
+            <p id="total-income">0</p>
+          </div>
+          <div id="expenses-container">
+            <h2>Expenses</h2>
+            <h3>Expenses:</h3>
+            <p id="expenses">0</p>
+          </div>
+
+          <div id="tax-container">
+            <h2>Tax</h2>
+            <h3>Tax:</h3>
+            <p id="tax">0</p>
+          </div>
+
+          <div id="net-income-container">
+            <h2>Net Income</h2>
+            <h3>Net Income:</h3>
+            <p id="net-income">0</p>
+          </div>
+        </section>
+      </section>
+      <section id="module-five" class="module-section">
+        <section id="add-purchase-info-section-2">
+          <h2>Add Purchase Info</h2>
+          <form id="add-purchase-info-form-2">
+            <label for="purchase-id-2">Purchase ID:</label>
+            <input type="number" id="purchase-id-2" required />
+
+            <label for="farmer-id-for-purchase-2">Farmer ID:</label>
+            <input type="number" id="farmer-id-for-purchase-2" required />
+
+            <label for="date-purchased-2">Date Purchased:</label>
+            <input type="date" id="date-purchased-2" required />
+
+            <label for="quantity-purchased-2">Quantity Purchased:</label>
+            <input
+              type="number"
+              id="quantity-purchased-2"
+              step="0.01"
+              required
+            />
+
+            <label for="price-per-unit-2">Price Per Unit:</label>
+            <input type="number" id="price-per-unit-2" step="0.01" required />
+
+            <button
+              type="button"
+              id="add-purchase-info-button-2"
+              class="add-purchase-info-button"
+            >
+              Add Purchase Info
+            </button>
+          </form>
+        </section>
+        <div class="total-raw-input-container-2">
+          <h1>Total Raw Input</h1>
+          <p>The total raw input is:</p>
+          <div id="total-raw-input-2" class="total-display-2">0</div>
+        </div>
+        <section id="inventory-management-section">
+          <h2>Category Demand Table</h2>
+          <table border="1" id="category-demand-table">
+            <thead>
+              <tr>
+                <th>Category Name</th>
+                <th>Demand</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Dynamic rows will be added here -->
+            </tbody>
+          </table>
+        </section>
+      </section>
+      <section id="module-six" class="module-section">
+        <section id="report-section">
+          <label for="time-period-for-report">Select Time Period:</label>
+          <select id="time-period-for-report">
+            <option value="lastDay">Last Day</option>
+            <option value="lastWeek">Last Week</option>
+            <option value="lastMonth">Last Month</option>
+            <option value="lastQuarter">Last Quarter</option>
+            <option value="lastYear">Last Year</option>
+          </select>
+
+          <div id="net-income-container-for-report">
+            <p id="overall-income-for-report">Overall Income: $0.00</p>
+            <p id="expenses-for-report">Expenses: $0.00</p>
+            <p id="tax-for-report">Tax: $0.00</p>
+            <p id="net-income-for-report">Net Income: $0.00</p>
+          </div>
+          <!-- Container to display category sales data in table format -->
+          <div id="category-sales-container"></div>
+
+          <div id="remaining-stock-container-buttons">
+            <button id="show-stock-button">Show Stock</button>
+            <button id="hide-stock-button">Hide Stock</button>
+            <div id="remaining-stock-container" style="display: none"></div>
+          </div>
+          <section id="order-history-section-for-report">
+            <h2>Order History Table</h2>
+            <!-- Filters -->
+            <div id="filters-for-report">
+              <label for="filter-customer-name-for-report"
+                >Filter by Customer Name:</label
+              >
+              <input
+                type="text"
+                id="filter-customer-name-for-report"
+                placeholder="Enter customer name"
+              />
+
+              <label for="filter-category-for-report"
+                >Filter by Product Category:</label
+              >
+              <input
+                type="text"
+                id="filter-category-for-report"
+                placeholder="Enter product category"
+              />
+            </div>
+            <table id="order-history-table-for-report">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer Name</th>
+                  <th>Customer Surname</th>
+                  <th>Phone Number</th>
+                  <th>Location</th>
+                  <th>Category</th>
+                  <th>Quantity</th>
+                  <th>Revenue</th>
+                  <th>Order Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Populated rows will appear here -->
+              </tbody>
+            </table>
+          </section>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
